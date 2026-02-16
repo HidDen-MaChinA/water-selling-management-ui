@@ -1,6 +1,6 @@
 import type React from "react"
-import type { SideBarLinkType } from "../components/Layout/SideBar/SideBarLinkType"
-import type { SideBarLinkObject, SideBarType } from "../components/Layout/SideBar/SideBarType"
+import type { SideBarLinkObject, SideBarType } from "../BlazeSideBar/SideBarType"
+import type { SideBarLinkType } from "../BlazeSideBar/SideBarLinkType"
 
 export type TBlazeLayoutObjectConfiguration = {
     Sidebar?: SideBarType

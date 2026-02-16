@@ -1,10 +1,10 @@
 import type { UseFormRegister } from "react-hook-form";
 import type { CustomInput } from "./CustomInput";
 import type { ICustomInputs } from "./ICustomInputs";
-import H6 from "../components/Typography/H6";
 import { v4 } from "uuid";
-import { Text } from "../components/Typography/Text";
 import type { CustomListValueInput } from "./CustomListValueInput";
+import H6 from "../BlazeTypography/H6";
+import { Text } from "../BlazeTypography/Text";
 
 export class CustomInputs implements ICustomInputs {
   _date?: CustomInput<string | null> = displayDateInput;

@@ -5,29 +5,41 @@ import LandingPage from "./pages/LandingPage";
 import { BlazeLayout } from "./BlazeLayout/BlazeLayout";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
+import ManageCustomersPage from "./pages/Customers/ManageCustomersPage";
+import ManageQueuePage from "./pages/Queue/ManageQueuePage";
 
 const BlazeObjectRoutes = createObjectRoutes([
-    {
-        path: "*",
-        ComponentPage: NotFound 
-    },
-    {
-        path: "/forbidden",
-        ComponentPage: ForbiddenPage
-    },
-    {
-        path: "/",
-        ComponentPage: LandingPage
-    },
-    {
-        path: "/dashboard",
-        Layout: BlazeLayout,
-        ComponentPage: DashboardPage
-    },
-    {
-        path: "/login",
-        ComponentPage: LoginPage
-    }
-])
+  {
+    path: "*",
+    ComponentPage: NotFound,
+  },
+  {
+    path: "/forbidden",
+    ComponentPage: ForbiddenPage,
+  },
+  {
+    path: "/",
+    ComponentPage: LandingPage,
+  },
+  {
+    path: "/dashboard",
+    Layout: BlazeLayout,
+    ComponentPage: DashboardPage,
+  },
+  {
+    path: "/customers",
+    Layout: BlazeLayout,
+    ComponentPage: ManageCustomersPage,
+  },
+  {
+    path: "/queue",
+    Layout: BlazeLayout,
+    ComponentPage: ManageQueuePage,
+  },
+  {
+    path: "/login",
+    ComponentPage: LoginPage,
+  },
+]);
 
-export default BlazeObjectRoutes
+export default BlazeObjectRoutes;
