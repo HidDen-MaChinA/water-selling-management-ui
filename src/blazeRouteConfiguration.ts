@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import ManageCustomersPage from "./pages/Customers/ManageCustomersPage";
 import ManageQueuePage from "./pages/Queue/ManageQueuePage";
+import Profile from "./pages/Profile";
 
 const BlazeObjectRoutes = createObjectRoutes([
   {
@@ -39,6 +40,10 @@ const BlazeObjectRoutes = createObjectRoutes([
   {
     path: "/login",
     ComponentPage: LoginPage,
+  },
+  {
+    path: "/profile",
+    ComponentPage: Profile,
   },
 ]);
 
