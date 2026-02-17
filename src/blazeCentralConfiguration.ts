@@ -1,8 +1,10 @@
-import type { TBlazeCentralConfiguration } from "./@types/TBlazeCentralConfiguration";
+import type { TBlazeCentralConfiguration } from "./@types/BlazeTypes/TBlazeCentralConfiguration";
 import { BlazeBaseAuthentificationProvider } from "./BlazeAuthentification/BlazeAuthentificationProvider";
 import Logo from "./components/Layout/Logo";
 import { AppSideBar } from "./components/SideBar/AppSideBar";
 import { AppSideBarLink } from "./components/SideBar/AppSideBarLink";
+import { TableBody } from "./components/Table/TableBody";
+import { TableHead } from "./components/Table/TableHead";
 
 const blazeCentralConfiguration : TBlazeCentralConfiguration = {
     blazeLayout: {
@@ -17,8 +19,12 @@ const blazeCentralConfiguration : TBlazeCentralConfiguration = {
     },
     // T type argument is the return type of whoami function that give type to all the middleware argument
     blazeAuthProvider: {
-        authentificationPath: "/api/auth/whoami",
-        authentificationProvider: new BlazeBaseAuthentificationProvider<unknown>
+        authentificationPath: "/whoami",
+        authentificationProvider: new BlazeBaseAuthentificationProvider<unknown>("/api/auth")
+    },
+    blazeTables: {
+        TBody: TableBody,
+        Thead: TableHead
     }
 }
 

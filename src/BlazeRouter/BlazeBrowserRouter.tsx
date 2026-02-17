@@ -3,7 +3,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router";
-import type { TBlazeRouteType } from "../@types/TBlazeRoutesConfiguration.ts";
+import type { TBlazeRouteType } from "../@types/BlazeTypes/TBlazeRoutesConfiguration.ts";
 import { BlazeAuthentificationLayer } from "../BlazeAuthentification/BlazeAuthentificationLayer.tsx";
 import blazeCentralConfiguration from "../blazeCentralConfiguration.ts";
 import BlazeObjectRoutes from "../blazeRouteConfiguration.ts";

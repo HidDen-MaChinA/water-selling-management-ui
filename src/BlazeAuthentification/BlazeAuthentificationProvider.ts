@@ -11,10 +11,13 @@ export class BlazeBaseAuthentificationProvider <T> implements IBlazeAuthentifica
         return null
     }
     whoami(authPath: string): Promise<T | null> {
-       return baseClient.get(parseAuthPath(authPath)).then((res)=>res.data as T).catch(_=>null)
+       return baseClient.get(parseAuthPath(this.ressource + authPath)).then((res)=>res.data as T).catch(_=>null)
     }
     login<K>(path: string, args:K):Promise<T | null>{
-       return baseClient.post(parseAuthPath(path), args).then((res)=>res.data as T).catch(_=>null)
+       return baseClient.post(parseAuthPath(this.ressource + path), args).then((res)=>res.data as T).catch(_=>null)
+    }
+    constructor(private ressource: string){
+
     }
 }
 

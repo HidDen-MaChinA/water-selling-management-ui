@@ -1,5 +1,5 @@
-import type { BlazeMiddleware } from "../BlazeAuthentification/BlazeAuthentificationLayer";
-import { type BlazeLayoutType } from "../BlazeLayout/BlazeLayout";
+import type { BlazeMiddleware } from "../../BlazeAuthentification/BlazeAuthentificationLayer";
+import { type BlazeLayoutType } from "../../BlazeLayout/BlazeLayout";
 
 export type PageComponent = ()=>React.ReactNode;
 

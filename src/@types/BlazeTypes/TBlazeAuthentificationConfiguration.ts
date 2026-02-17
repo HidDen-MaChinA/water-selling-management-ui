@@ -1,4 +1,4 @@
-import type { IBlazeAuthentificationProvider } from "../BlazeAuthentification/BlazeAuthentificationProvider"
+import type { IBlazeAuthentificationProvider } from "../../BlazeAuthentification/BlazeAuthentificationProvider"
 
 export type TBlazeAuthentificationConfiguration = {
     authentificationProvider : IBlazeAuthentificationProvider

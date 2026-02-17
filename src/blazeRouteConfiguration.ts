@@ -26,11 +26,13 @@ const BlazeObjectRoutes = createObjectRoutes([
     path: "/dashboard",
     Layout: BlazeLayout,
     ComponentPage: DashboardPage,
+    protection: true
   },
   {
     path: "/customers",
     Layout: BlazeLayout,
     ComponentPage: ManageCustomersPage,
+    protection: true
   },
   {
     path: "/queue",

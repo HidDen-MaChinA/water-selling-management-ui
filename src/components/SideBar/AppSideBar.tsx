@@ -11,9 +11,9 @@ export const AppSideBar: SideBarType = (props) => {
         {LogoComponent && <LogoComponent />}
       </div>
       <div className="flex flex-col mt-5 flex-1">
-        {sideBarLinksObjects?.map((sideBarLinkObject) =>
+        {sideBarLinksObjects?.map((sideBarLinkObject, index) =>
           SideBarLinkComponent ? (
-            <SideBarLinkComponent selected={sideBarLinkObject.path === location.pathname} href={sideBarLinkObject.path}>
+            <SideBarLinkComponent key={"app-sidebar-link-"+index} selected={sideBarLinkObject.path === location.pathname} href={sideBarLinkObject.path}>
               {sideBarLinkObject.label}
             </SideBarLinkComponent>
           ) : (
