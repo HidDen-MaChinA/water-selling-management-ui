@@ -9,7 +9,11 @@ export type DynamiqueListValueInputBase = {
   label:string
   type: DynamiqueInputType
   required?:boolean
-  values?:string[] | number[]
+  values?:{
+    valueIdentifier?: string,
+    value: string | number
+  }[]
+  objectKey?: string
 }
 
 type FormStructureType = DynamiqueInputBase & DynamiqueListValueInputBase
@@ -87,7 +91,7 @@ export function BlazeBaseDynamicForm(props: BlazeBaseDynamicFormPropsType){
              if (functionRefArray[inputBase.type]) {
                return functionRefArray[inputBase.type]!(
                  register,
-                 inputBase.label,
+                 inputBase.objectKey || inputBase.label,
                  `dynamique-form-input-type-${inputBase.type}-index-${index}`,
                  inputBase.required,
                  inputBase.values

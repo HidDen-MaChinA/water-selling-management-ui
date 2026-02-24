@@ -37,7 +37,7 @@ function displayTextInput(
       <input
         className="border w-full border-gray-700 px-1 py-1 rounded-md"
         type="text"
-        {...register(toLowerCase(label), { required: required })}
+        {...register(label, { required: required })}
       />
     </div>
   );
@@ -55,7 +55,7 @@ function displayNumberInput(
       <input
         className="w-full border border-gray-700 px-1 py-1 rounded-md"
         type="number"
-        {...register(toLowerCase(label), { required: required })}
+        {...register(label, { required: required })}
       />
     </div>
   );
@@ -73,7 +73,7 @@ function displayPasswordInput(
       <input
         className="w-full border border-gray-700 px-1 py-1 rounded-md"
         type="password"
-        {...register(toLowerCase(label), { required: required })}
+        {...register(label, { required: required })}
       />
     </div>
   );
@@ -98,7 +98,7 @@ function displayFileInput(
           hidden
           id={id}
           type="file"
-          {...register(toLowerCase(label), { required: required })}
+          {...register(label, { required: required })}
         />
       </label>
     </div>
@@ -117,7 +117,7 @@ function displayDateInput(
       <input
         className="w-full border border-gray-700 px-1 py-1 rounded-md"
         type="date"
-        {...register(toLowerCase(label), { required: required })}
+        {...register(label, { required: required })}
       />
     </div>
   );
@@ -128,21 +128,27 @@ function displaySelectInput(
   label: string,
   key: string,
   required?: boolean,
-  values?: string[] | number[]
+  values?:{
+    valueIdentifier?: string,
+    value: string | number
+  }[]
 ) {
   if (!values) {
     values = [];
+  }
+  if(values.length === 0){
+    return <div></div>
   }
   return (
     <div className="pt-2" key={key}>
       <H6>{firstCharToUpperCase(label)}</H6>
       <select 
         className="w-full border border-gray-700 px-1 py-1 rounded-md"
-        defaultValue={values[0]}
-       {...register(toLowerCase(label), { required: required })}>
+        defaultValue={values[0].value}
+       {...register(label, { required: required })}>
         {values.map((value, index) => (
-          <option value={value} key={`display-select-input-${value}-${index}`}>
-            {firstCharToUpperCase(value.toString())}
+          <option value={value.value} key={`display-select-input-${value}-${index}`}>
+            {firstCharToUpperCase(value.valueIdentifier || value.value.toString())}
           </option>
         ))}
       </select>

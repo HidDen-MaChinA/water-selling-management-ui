@@ -19,7 +19,7 @@ export interface IBlazeApiBase {
 }
 
 export class AxiosBlazeApi implements IBlazeApiBase {
-  constructor(private ressource: string){ }
+  constructor(protected ressource: string){ }
 
   get<K>(path: string, queryParam?: QueryParamType): Promise<K> {
     return baseClient

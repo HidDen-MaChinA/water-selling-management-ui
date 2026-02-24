@@ -4,7 +4,7 @@ import { useCustomersStore } from "../stores/customersStore";
 import type { Customer } from "../@types/AppTypes/Customer";
 
 export default function DashboardPage(){
-    const {customersPage, getPage, loadPage} = useCustomersStore(_=>_);
+    const {pages, getPage, loadPage} = useCustomersStore(_=>_);
     const [page, setPage] = useState(1)
     const [customers, setCustomers] = useState<Customer[]>([]);
     const onLoadCurrentPage = ()=>{
@@ -23,7 +23,7 @@ export default function DashboardPage(){
         if(currentPage){
            setCustomers(currentPage)
         }
-    }, [customersPage])
+    }, [pages])
     return (
         <div>
             <BlazeBaseTable headers={["Name", "Status"]}>
