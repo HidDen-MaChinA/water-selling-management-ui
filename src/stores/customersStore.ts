@@ -3,4 +3,4 @@ import { CustomerApiCallsHandler } from "../BlazeApiCalls/ApiCallsHandlers/Custo
 import { createBlazePageStore } from "../BlazePagerStore/BlazePagerStore";
 
 const customersCallHandler = new CustomerApiCallsHandler();
-export const useCustomersStore = createBlazePageStore<Customer>(customersCallHandler)
+export const useCustomersStore = createBlazePageStore<Customer>(customersCallHandler, "/getall")

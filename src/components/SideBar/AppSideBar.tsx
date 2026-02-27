@@ -6,7 +6,9 @@ export const AppSideBar: SideBarType = (props) => {
   const { LogoComponent, SideBarLinkComponent, sideBarLinksObjects } = props;
   const location = useLocation();
   return (
-    <div className=" flex flex-col justify-between w-[150px] border-r border-r-blue-100 shadow-xl">
+    <div className="flex">
+    <div className="w-[150px] h-[100vh]"></div>
+    <div className="flex fixed flex-col justify-between w-[150px] h-[100vh] border-r border-r-blue-100 shadow-xl">
       <div className="w-full pt-3 flex justify-center">
         {LogoComponent && <LogoComponent />}
       </div>
@@ -31,6 +33,7 @@ export const AppSideBar: SideBarType = (props) => {
             </div>
           </a>
       </div>
+    </div>
     </div>
   );
 };

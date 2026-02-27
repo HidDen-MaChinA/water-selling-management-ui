@@ -8,7 +8,7 @@ type BlazePagerStoreType <T>= {
     getPage: (page: number)=>T[] | undefined
 }
 
-export function createBlazePageStore<T>(apiCallHandler: IBlazeApiBase){
+export function createBlazePageStore<T>(apiCallHandler: IBlazeApiBase, ressourcePath: string){
     return create<BlazePagerStoreType<T>>((set,get)=>({
     pages:[],
     loadPage: (page: number)=>{
@@ -22,7 +22,7 @@ export function createBlazePageStore<T>(apiCallHandler: IBlazeApiBase){
         if(pageLoaded){
             return;
         }
-        apiCallHandler.get<T[]>("/getall", {page: page.toString()}).then((customers)=>{
+        apiCallHandler.get<T[]>(ressourcePath, {page: page.toString()}).then((customers)=>{
             set((state)=>{
                 const newPages= [...state.pages]
                 newPages[page] = customers

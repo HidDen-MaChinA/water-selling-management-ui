@@ -1,6 +1,6 @@
 import { AxiosBlazeApi } from "../BlazeApiBase";
 
-export class CustomerAnalyticsDataApiCallsHandler extends AxiosBlazeApi {
+export class AnalyticsApiCallsHandler extends AxiosBlazeApi {
     constructor(){
         super("/api/analytics")
     }

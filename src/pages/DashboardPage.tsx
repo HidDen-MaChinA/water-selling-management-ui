@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
-import { BlazeBaseTable } from "../BlazeTables/BlazeBaseTable";
-import { useCustomersStore } from "../stores/customersStore";
-import type { Customer } from "../@types/AppTypes/Customer";
+import { useCustomerAnalyticsDataStore } from "../stores/pagesStores/analyticsStore";
+import { BaseLineChart } from "../BlazeCharts/LineCharts/BaseLineChart";
+import type { Analytic } from "../@types/AppTypes/Analytic";
+import { BaseBarChart } from "../BlazeCharts/BarCharts/BaseBarChart";
+import type { CustomerAnalyticsData } from "../@types/AppTypes/CustomerAnalyticsData";
 
 export default function DashboardPage(){
-    const {pages, getPage, loadPage} = useCustomersStore(_=>_);
+    const {pages, getPage, loadPage} = useCustomerAnalyticsDataStore(_=>_);
     const [page, setPage] = useState(1)
-    const [customers, setCustomers] = useState<Customer[]>([]);
+    const [customerAnalytics, setCustomerAnalytics] = useState<Analytic[]>([]);
+    const [visiteRateData, setVisiteRateData] = useState<{label: string, data: number[]}[]>([]);
+    const [visiteRateDataLabels, setVisiteRateDataLabels] = useState<string[]>([])
+    const [totalBidonData, setTotalBidonData] = useState<{label: string, data: number[]}[]>([]);
     const onLoadCurrentPage = ()=>{
         const currentPage = getPage(page);
         if(!currentPage){
            loadPage(page);
            return;
         }
-        setCustomers(currentPage);
+        setCustomerAnalytics(currentPage);
     }
     useEffect(()=>{
         loadPage(1);
@@ -21,21 +26,67 @@ export default function DashboardPage(){
     useEffect(()=>{
         const currentPage = getPage(page);
         if(currentPage){
-           setCustomers(currentPage)
+           setCustomerAnalytics(currentPage)
+           setVisiteRateData(formatVisiteRateData(currentPage));
+           setTotalBidonData(formatTotalBidonNumber(currentPage));
+           setVisiteRateDataLabels(formatLabelsVisiteRateData(currentPage))
         }
     }, [pages])
     return (
-        <div>
-            <BlazeBaseTable headers={["Name", "Status"]}>
-                {
-                   customers.map((customer, index)=>(
-                    <tr key={"dashboard-customers-table" + index}>
-                        <td>{customer.name}</td>
-                        <td>{customer.status}</td>
-                    </tr>
-                   )) 
-                }
-            </BlazeBaseTable>
+        <div className="flex-1">
+            <BaseLineChart
+                data={{
+                    datasets: visiteRateData,
+                    labels: visiteRateDataLabels
+                }}
+            />
+            <BaseBarChart 
+                data={{
+                    datasets: totalBidonData,
+                    labels: ["Total bidon number"]
+                }}
+            
+            />
         </div>
     )
+}
+
+function formatVisiteRateData(analytics: Analytic[]){
+    const formated = analytics.map((analytic)=>({
+        label: analytic.customer.name,
+        data: analytic.customerAnalyticsData.map((customerAnalyticData)=>customerAnalyticData.customerVisiteForDateRange)
+    }));
+    return formated;
+}
+
+function formatLabelsVisiteRateData(analytics: Analytic[]){
+    const customerAnalyticData = analytics.flatMap((analytic)=>analytic.customerAnalyticsData)
+    const toReturn = []
+    const dateRangeMap = new Map<string, any>();
+    for(let i=0; i<=customerAnalyticData.length; i++){
+        if(customerAnalyticData[i]){
+            const dateRangeStart = customerAnalyticData[i].dateRangeStart        
+            const dateRangeEnd= customerAnalyticData[i].dateRangeEnd
+            dateRangeMap.set(`${dateRangeStart}/${dateRangeEnd}`, customerAnalyticData[i].bidonNumber)
+        }
+    }
+    for(const [key, value] of dateRangeMap){
+        const [dateStart, dateEnd] = key.split("/").map(each=>new Date(each));
+        const date = formatDateToReturnDayMonthYear(dateStart) + "-" + formatDateToReturnDayMonthYear(dateEnd);
+        toReturn.push(date)
+    }
+    return toReturn
+}
+
+function formatDateToReturnDayMonthYear(arg: Date){
+    return arg.toLocaleString('default', {dateStyle: 'medium'})
+}
+
+function formatTotalBidonNumber(analytics: Analytic[]){
+    const formated = analytics.map((analytic)=>({
+        label: analytic.customer.name,
+        data: [analytic.totalBidonNumber]
+    }));
+    return formated;
+
 }
