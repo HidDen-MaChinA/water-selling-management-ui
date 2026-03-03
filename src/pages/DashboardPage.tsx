@@ -15,7 +15,7 @@ export default function DashboardPage(){
     const onLoadCurrentPage = ()=>{
         const currentPage = getPage(page);
         if(!currentPage){
-           loadPage(page);
+           loadPage(page, {dateRangeTimeScoop: "DAY"});
            return;
         }
         setCustomerAnalytics(currentPage);
@@ -34,19 +34,19 @@ export default function DashboardPage(){
     }, [pages])
     return (
         <div className="flex-1">
-            <BaseLineChart
-                data={{
-                    datasets: visiteRateData,
-                    labels: visiteRateDataLabels
-                }}
-            />
-            <BaseBarChart 
-                data={{
-                    datasets: totalBidonData,
-                    labels: ["Total bidon number"]
-                }}
-            
-            />
+                <BaseLineChart
+                    data={{
+                        datasets: visiteRateData,
+                        labels: visiteRateDataLabels
+                    }}
+                />
+                <BaseBarChart 
+                    data={{
+                        datasets: totalBidonData,
+                        labels: ["Total bidon number"]
+                    }}
+                
+                />
         </div>
     )
 }

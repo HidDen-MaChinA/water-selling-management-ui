@@ -4,14 +4,14 @@ import type { IBlazeApiBase } from "../BlazeApiCalls/BlazeApiBase";
 
 type BlazePagerStoreType <T>= {
     pages: T[][]
-    loadPage: (page: number)=>void
+    loadPage: (page: number,args?: {[args: string]: string})=>void
     getPage: (page: number)=>T[] | undefined
 }
 
 export function createBlazePageStore<T>(apiCallHandler: IBlazeApiBase, ressourcePath: string){
     return create<BlazePagerStoreType<T>>((set,get)=>({
     pages:[],
-    loadPage: (page: number)=>{
+    loadPage: (page: number,args)=>{
         if(page<1){
             return;
         }
@@ -22,7 +22,7 @@ export function createBlazePageStore<T>(apiCallHandler: IBlazeApiBase, ressource
         if(pageLoaded){
             return;
         }
-        apiCallHandler.get<T[]>(ressourcePath, {page: page.toString()}).then((customers)=>{
+        apiCallHandler.get<T[]>(ressourcePath, {page: page.toString(), ...args}).then((customers)=>{
             set((state)=>{
                 const newPages= [...state.pages]
                 newPages[page] = customers

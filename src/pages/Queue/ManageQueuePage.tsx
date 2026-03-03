@@ -13,8 +13,8 @@ export default function ManageQueuePage(){
     const customersStore = useCustomersStore(_=>_)
     const [customers, setCustomers]= useState<Customer[]>([])
     const onSubmit = (values : FieldValues)=>{
-    console.log(values)
-       queuesApiCallHandler.post(values, "/create"); 
+       queuesApiCallHandler.post(values, "/create").then(()=>{
+       }); 
     }
     useEffect(()=>{
         setCustomers(customersStore.getPage(1) || [])
